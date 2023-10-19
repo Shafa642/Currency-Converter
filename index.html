@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exchange generator</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-firstpart">
+                <img class="bank-img" src="./assets/bank.png">
+            </div>
+            <div class="header-secondpart">
+                <ul class="menu-list">
+                    <li><a>BANK</a></li>
+                    <li><a>BUSINESS</a></li>
+                    <li><a>INVESTMENTS</a></li>
+                    <li><a>INSURANCE</a></li>
+                    <li><a>MOBILE</a></li>
+                    <li><a>TRIPS</a></li>
+                    <li><a>ENTERTAINMENT</a></li>
+                </ul>
+            </div>
+            <div class="header-thirdpart">
+                <button class="enter-button">ENTER</button>
+            </div>
+        </div>
+        <div class="main-part">
+            <h1 class=" heading">Currency converter online</h1>
+            <div class="currency-div">
+
+                <div class="left-part">
+                    <p class="paragraph">I have</p>
+                    <ul class="currency-list" id="from">
+                        <li id="RUB">RUB</li>
+                        <li id="USD">USD</li>
+                        <li id="EUR">EUR</li>
+                        <li id="GBP">GBP</li>
+                    </ul>
+                    <div class="currency-value">
+                        <input class="input-number" type="text" value="1" id="amountFrom" />
+                        <p class="exchange-rate">0 RUB = 0 USD</p>
+                    </div>
+                </div>
+
+
+                <div class="right-part">
+                    <p class="paragraph">I want to buy</p>
+                    <ul class="currency-list" id="to">
+                        <li id="RUB">RUB</li>
+                        <li id="USD">USD</li>
+                        <li id="EUR">EUR</li>
+                        <li id="GBP">GBP</li>
+                    </ul>
+                    <div class="currency-value">
+                        <input class="input-number" type="text" value="1" id="result" id="amountTo" />
+                        <p class=" result-exchange">0 USD = 0 RUB</p>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+    <script src="./script.js"></script>
+</body>
+
+</html>
