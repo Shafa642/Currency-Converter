@@ -1,5 +1,3 @@
-
-
 const apiUrl = 'https://currency-converter-by-api-ninjas.p.rapidapi.com/v1/convertcurrency';
 let currencyList = document.querySelectorAll(".currency-list");
 let listItems = document.querySelectorAll(".currency-list li");
@@ -18,10 +16,10 @@ let toCurrencyCode = "USD";
 let convertedAmount;
 
 
-const startConversion = async () => {
+const startConversion = async (from, to, amount) => {
     try {
         // for  Fetch exchange rates from the API
-        const response = await fetch(`${apiUrl}?have=${fromCurrencyCode}&want=${toCurrencyCode}&amount=${amountToConvert}`, {
+        const response = await fetch(`${apiUrl}?have=${from}&want=${to}&amount=${amount}`, {
             method: 'GET',
             headers: {
                 'X-RapidAPI-Host': 'currency-converter-by-api-ninjas.p.rapidapi.com',
@@ -30,9 +28,6 @@ const startConversion = async () => {
         });
 
         const data = await response.json();
-
-        toAmountInput.value = data.new_amount
-        toAmountInput.innerText = data.new_amount
         return convertedAmount = data.new_amount;
     } catch (error) {
         console.error('Error fetching exchange rates:', error);
@@ -42,25 +37,21 @@ const startConversion = async () => {
 // For change exchange rate 
 
 async function convertExchangeRate() {
-    const response = await startConversion()
-    const response2 = await startConversion()
-
-    if (amountToConvert === 1) {
-        exchangeRateElement.innerText = `1 ${fromCurrencyCode} = ${response} ${toCurrencyCode}`;
-        exchangeRateElement2.innerText = `1 ${toCurrencyCode} = ${response2} ${fromCurrencyCode}`;
-
-        // console.log(exchangeRateElement);
-    } else {
-        exchangeRateElement.innerText = '';
-    }
+    const response = await startConversion(fromCurrencyCode, toCurrencyCode, 1)
+    const response2 = await startConversion(toCurrencyCode, fromCurrencyCode, 1)
+    exchangeRateElement.innerText = `1 ${fromCurrencyCode} = ${response} ${toCurrencyCode}`;
+    exchangeRateElement2.innerText = `1 ${toCurrencyCode} = ${response2} ${fromCurrencyCode}`;
 }
 convertExchangeRate()
 
 
+
 fromAmountInput.addEventListener("input", async (e) => {
     amountToConvert = Number(e.target.value)
-    await startConversion()
- convertExchangeRate()
+    const response = await startConversion(fromCurrencyCode, toCurrencyCode, amountToConvert)
+    toAmountInput.value = response
+    toAmountInput.innerText = response
+    convertExchangeRate()
 })
 
 
@@ -106,19 +97,23 @@ toCurrencyList.forEach((item, index) => {
 
 
 
-fromCurrencyList.forEach((item,index)=>{
-    item.addEventListener("click", async ()=>{
+fromCurrencyList.forEach((item, index) => {
+    item.addEventListener("click", async () => {
         fromCurrencyCode = item.innerText
-        await startConversion()
+        const response = await startConversion(fromCurrencyCode, toCurrencyCode, amountToConvert)
+        toAmountInput.value = response
+        toAmountInput.innerText = response
         convertExchangeRate()
     })
 })
 
 
-toCurrencyList.forEach((item,index)=>{
-    item.addEventListener("click", async ()=>{
+toCurrencyList.forEach((item, index) => {
+    item.addEventListener("click", async () => {
         toCurrencyCode = item.innerText
-        await startConversion()
+        const response = await startConversion(fromCurrencyCode, toCurrencyCode, amountToConvert)
+        toAmountInput.value = response
+        toAmountInput.innerText = response
         convertExchangeRate()
     })
 })
